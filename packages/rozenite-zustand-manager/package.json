@@ -56,8 +56,9 @@
     "build:web": "vite build",
     "dev": "rozenite dev",
     "dev:web": "vite",
-    "preview": "vite preview",
+    "prepack": "cp ../../README.md README.md",
     "prepublishOnly": "pnpm build",
+    "preview": "vite preview",
     "test": "vitest run src",
     "typecheck": "tsc --noEmit"
   },
