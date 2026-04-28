@@ -29,7 +29,7 @@ The plugin has **three independently shipped artifacts** declared in `package.js
 2. **React Native runtime** — `react-native.ts` at the repo root, exported as `main`/`module`/`react-native` in `package.json`. Compiled to `dist/react-native/`.
 3. **Metro Babel transformer** — `metro.ts` at the repo root, exported under the `./metro` subpath. Compiled to `dist/metro/`.
 
-These three pieces communicate through the **Rozenite bridge** (`@rozenite/plugin-bridge`) using a typed event contract. Both sides share the same plugin id (`@rozenite/zustand-manager`); a mismatch silently breaks the bridge.
+These three pieces communicate through the **Rozenite bridge** (`@rozenite/plugin-bridge`) using a typed event contract. Both sides share the same plugin id (`rozenite-zustand-manager`); a mismatch silently breaks the bridge.
 
 ### Bridge contract
 
@@ -76,7 +76,7 @@ Styling: Tailwind v4 (via `@tailwindcss/vite`) plus three CSS modules — `token
 - Source uses **TypeScript with `verbatimModuleSyntax` + `erasableSyntaxOnly`**: type-only imports must use `import type`, no `enum` / `namespace` / parameter properties. Treat `noUnusedLocals` / `noUnusedParameters` as build errors.
 - React **must be a single copy** in any consumer bundle. Root has React as a `devDependency` only; `peerDependencies` declares React / React Native / Zustand. Duplicate React in the example bundle has caused "Invalid hook call" crashes before — verify Hermes bundle, not just Metro success.
 - Do not modify `example/` for plugin-side changes unless the example actually exercises a new code path.
-- The Rozenite plugin id is `@rozenite/zustand-manager` and is hardcoded in four places: `package.json#name`, `react-native.ts` (`PLUGIN_ID`), `src/features/zustand-panel/useZustandManagerPanel.ts` (`PLUGIN_ID`), and the import string in `metro.ts` (`__unstableTransformZustandSource`). All four must match.
+- The Rozenite plugin id is `rozenite-zustand-manager` and is hardcoded in four places: `package.json#name`, `react-native.ts` (`PLUGIN_ID`), `src/features/zustand-panel/useZustandManagerPanel.ts` (`PLUGIN_ID`), and the import string in `metro.ts` (`__unstableTransformZustandSource`). All four must match.
 - Tests live in `src/__tests__/` and run with **vitest**. Core, bridge messages, panel state utils, package config, and Metro autodiscovery each have their own spec — extend the matching one rather than creating a new file.
 
 ## Verification

@@ -5,7 +5,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for proposing a feature! Before continuing, please search [existing issues](https://github.com/erpipi/rozenite-zustand-manager/issues) to make sure it isn't already requested.
+        Thanks for proposing a feature! Before continuing, please search [existing issues](https://github.com/malopezr7/rozenite-zustand-manager/issues) to make sure it isn't already requested.
 
   - type: textarea
     id: problem

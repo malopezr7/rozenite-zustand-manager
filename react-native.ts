@@ -4,7 +4,7 @@ import type { StoreApi } from 'zustand/vanilla';
 
 import { applyPathPatch, computeStoreId, createSanitizedSnapshot, createStoreDescriptor, deleteAtPathRuntime, mergeFunctionsFromCurrent, stripSanitizationMarkers } from './src/lib/zustandManagerCore';
 
-const PLUGIN_ID = '@rozenite/zustand-manager';
+const PLUGIN_ID = 'rozenite-zustand-manager';
 
 type RedactPattern = RegExp;
 

@@ -1,6 +1,6 @@
 # Example app
 
-A bare React Native app that exercises `@rozenite/zustand-manager` with three Zustand stores:
+A bare React Native app that exercises `rozenite-zustand-manager` with three Zustand stores:
 
 - `useAuthStore` — auth flow with redacted tokens
 - `useCartStore` — list mutations

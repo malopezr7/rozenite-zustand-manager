@@ -81,9 +81,6 @@ importers:
       '@rozenite/metro':
         specifier: 1.7.0
         version: 1.7.0
-      '@rozenite/zustand-manager':
-        specifier: workspace:*
-        version: link:..
       react:
         specifier: 19.2.3
         version: 19.2.3
@@ -93,6 +90,9 @@ importers:
       react-native-safe-area-context:
         specifier: ^5.5.2
         version: 5.7.0(react-native@0.85.2(@babel/core@7.29.0)(@react-native-community/cli@20.1.0(typescript@5.9.3))(@react-native/jest-preset@0.85.2(@babel/core@7.29.0)(react@19.2.3))(@react-native/metro-config@0.85.2(@babel/core@7.29.0))(@types/react@19.2.14)(react@19.2.3))(react@19.2.3)
+      rozenite-zustand-manager:
+        specifier: workspace:*
+        version: link:..
       zustand:
         specifier: ^5.0.12
         version: 5.0.12(@types/react@19.2.14)(react@19.2.3)

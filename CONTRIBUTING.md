@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for your interest in `@rozenite/zustand-manager`! This is a small community plugin and contributions of all sizes are welcome — typo fixes, doc improvements, bug reports, and feature PRs.
+Thanks for your interest in `rozenite-zustand-manager`! This is a small community plugin and contributions of all sizes are welcome — typo fixes, doc improvements, bug reports, and feature PRs.
 
 ## Development setup
 
@@ -57,7 +57,7 @@ Adding a new bridge message means updating both shapes plus the relevant `StoreD
 
 ## Plugin id
 
-The plugin id `@rozenite/zustand-manager` is hardcoded in four places — keep them aligned:
+The plugin id `rozenite-zustand-manager` is hardcoded in four places — keep them aligned:
 
 - `package.json#name`
 - `react-native.ts` (`PLUGIN_ID`)

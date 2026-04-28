@@ -106,7 +106,7 @@ export function __unstableTransformZustandSource(source: string, filename: strin
   if (declarations.length === 0) return source;
 
   const file = normalizeFilePath(filename);
-  const registrationImport = ["import { registerZustandStore as __rozeniteZustandRegisterStore } from '@rozenite/zustand-manager';"];
+  const registrationImport = ["import { registerZustandStore as __rozeniteZustandRegisterStore } from 'rozenite-zustand-manager';"];
   const registrations = declarations.map((name) => `__rozeniteZustandRegisterStore({ name: ${JSON.stringify(name)}, file: ${JSON.stringify(file)}, store: ${name} });`);
 
   return `${registrationImport.join('\n')}\n${source}\n${registrations.join('\n')}\n`;

@@ -14,7 +14,7 @@ export const useAuthStore = create<AuthState>()((set) => ({
     const output = __unstableTransformZustandSource(source, '/app/src/stores/useAuthStore.ts');
 
     expect(output).toContain('registerZustandStore as __rozeniteZustandRegisterStore');
-    expect(output).toContain("from '@rozenite/zustand-manager'");
+    expect(output).toContain("from 'rozenite-zustand-manager'");
     expect(output).toContain('name: "useAuthStore"');
     expect(output).toContain('store: useAuthStore');
   });

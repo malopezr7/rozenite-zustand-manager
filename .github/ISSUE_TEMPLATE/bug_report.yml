@@ -1,11 +1,11 @@
 name: 🐛 Bug report
-description: Report a bug in @rozenite/zustand-manager
+description: Report a bug in rozenite-zustand-manager
 labels: [bug, triage]
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to file a bug report! Before continuing, please search [existing issues](https://github.com/erpipi/rozenite-zustand-manager/issues) to make sure the bug isn't already tracked.
+        Thanks for taking the time to file a bug report! Before continuing, please search [existing issues](https://github.com/malopezr7/rozenite-zustand-manager/issues) to make sure the bug isn't already tracked.
 
   - type: textarea
     id: description

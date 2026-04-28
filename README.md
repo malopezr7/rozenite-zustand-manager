@@ -10,7 +10,7 @@ This plugin is a community contribution to the [Rozenite][rozenite-website] DevT
 
 > 🚧 **Status:** `0.0.1` — alpha. API is stable, the panel UI is still being polished. Feedback and PRs welcome.
 
-![Zustand Manager Plugin](https://raw.githubusercontent.com/erpipi/rozenite-zustand-manager/main/docs/zustand-manager-plugin.png)
+![Zustand Manager Plugin](https://raw.githubusercontent.com/malopezr7/rozenite-zustand-manager/main/docs/zustand-manager-plugin.png)
 
 ## Features
 
@@ -26,7 +26,7 @@ This plugin is a community contribution to the [Rozenite][rozenite-website] DevT
 Install the plugin as a dev dependency:
 
 ```bash
-npm install --save-dev @rozenite/zustand-manager
+npm install --save-dev rozenite-zustand-manager
 ```
 
 **Note:** This plugin requires `zustand` (>= 5.0) as a peer dependency, plus [Rozenite][rozenite-website] and [`@rozenite/metro`][rozenite-metro] wired into your project.
@@ -36,7 +36,7 @@ npm install --save-dev @rozenite/zustand-manager
 ### 1. Install the Plugin
 
 ```bash
-npm install --save-dev @rozenite/zustand-manager
+npm install --save-dev rozenite-zustand-manager
 ```
 
 ### 2. Wrap Your Metro Config
@@ -45,7 +45,7 @@ npm install --save-dev @rozenite/zustand-manager
 // metro.config.js
 const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
 const { withRozenite } = require('@rozenite/metro');
-const { withZustandManager } = require('@rozenite/zustand-manager/metro');
+const { withZustandManager } = require('rozenite-zustand-manager/metro');
 
 const config = mergeConfig(getDefaultConfig(__dirname), {});
 
@@ -56,7 +56,7 @@ module.exports = withZustandManager(
 );
 ```
 
-> No `include` option needed — the plugin is auto-discovered via the `@rozenite/*` scope.
+> No `include` option needed — Rozenite auto-discovers any installed dependency that ships a `dist/rozenite.json` manifest.
 
 ### 3. Define Stores Normally
 
@@ -86,7 +86,7 @@ WITH_ROZENITE=true npm start
 For stores the autodiscovery can't reach — factory functions, runtime-created stores, re-exports through a wrapper — register them explicitly:
 
 ```typescript
-import { registerZustandStore } from '@rozenite/zustand-manager';
+import { registerZustandStore } from 'rozenite-zustand-manager';
 import { createBottomSheetStore } from './createBottomSheetStore';
 
 const sheet = createBottomSheetStore({ visible: false });
@@ -105,7 +105,7 @@ if (__DEV__) {
 `registerZustandStore` returns a cleanup function. There is also a hook form for component-scoped registration:
 
 ```typescript
-import { useZustandManager } from '@rozenite/zustand-manager';
+import { useZustandManager } from 'rozenite-zustand-manager';
 
 function App() {
   useZustandManager([
@@ -186,7 +186,7 @@ Release notes live in [CHANGELOG.md](CHANGELOG.md).
 
 ## Made with ❤️ for the React Native community
 
-`@rozenite/zustand-manager` is a community plugin built on top of [Rozenite][rozenite-website], the modular DevTools framework crafted by the team at [Callstack][callstack-website]. Huge ⭐ to them for making the plugin model possible — go give the [main repo][rozenite-repo] some love.
+`rozenite-zustand-manager` is a community plugin built on top of [Rozenite][rozenite-website], the modular DevTools framework crafted by the team at [Callstack][callstack-website]. Huge ⭐ to them for making the plugin model possible — go give the [main repo][rozenite-repo] some love.
 
 If this plugin saves you time, please star the [repo][repo] and join the [Rozenite Discord][chat] to share what you build.
 
@@ -194,16 +194,16 @@ If this plugin saves you time, please star the [repo][repo] and join the [Rozeni
 [rozenite-repo]: https://github.com/callstackincubator/rozenite
 [rozenite-metro]: https://www.npmjs.com/package/@rozenite/metro
 [callstack-website]: https://callstack.com
-[repo]: https://github.com/erpipi/rozenite-zustand-manager
-[npm]: https://www.npmjs.com/package/@rozenite/zustand-manager
-[npm-downloads]: https://www.npmjs.com/package/@rozenite/zustand-manager
-[npm-version-badge]: https://img.shields.io/npm/v/@rozenite/zustand-manager?style=for-the-badge
-[npm-downloads-badge]: https://img.shields.io/npm/dm/@rozenite/zustand-manager?style=for-the-badge
-[license]: https://github.com/erpipi/rozenite-zustand-manager/blob/main/LICENSE
-[license-badge]: https://img.shields.io/npm/l/@rozenite/zustand-manager?style=for-the-badge
-[prs-welcome]: https://github.com/erpipi/rozenite-zustand-manager/blob/main/CONTRIBUTING.md
+[repo]: https://github.com/malopezr7/rozenite-zustand-manager
+[npm]: https://www.npmjs.com/package/rozenite-zustand-manager
+[npm-downloads]: https://www.npmjs.com/package/rozenite-zustand-manager
+[npm-version-badge]: https://img.shields.io/npm/v/rozenite-zustand-manager?style=for-the-badge
+[npm-downloads-badge]: https://img.shields.io/npm/dm/rozenite-zustand-manager?style=for-the-badge
+[license]: https://github.com/malopezr7/rozenite-zustand-manager/blob/main/LICENSE
+[license-badge]: https://img.shields.io/npm/l/rozenite-zustand-manager?style=for-the-badge
+[prs-welcome]: https://github.com/malopezr7/rozenite-zustand-manager/blob/main/CONTRIBUTING.md
 [prs-welcome-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge
 [chat]: https://discord.gg/xgGt7KAjxv
 [chat-badge]: https://img.shields.io/discord/426714625279524876.svg?style=for-the-badge
-[ci]: https://github.com/erpipi/rozenite-zustand-manager/actions/workflows/ci.yml
-[ci-badge]: https://img.shields.io/github/actions/workflow/status/erpipi/rozenite-zustand-manager/ci.yml?branch=main&style=for-the-badge&label=CI
+[ci]: https://github.com/malopezr7/rozenite-zustand-manager/actions/workflows/ci.yml
+[ci-badge]: https://img.shields.io/github/actions/workflow/status/malopezr7/rozenite-zustand-manager/ci.yml?branch=main&style=for-the-badge&label=CI

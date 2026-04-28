@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to `@rozenite/zustand-manager` will be documented in this file.
+All notable changes to `rozenite-zustand-manager` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
@@ -40,5 +40,5 @@ Initial alpha release. Core feature set:
 - **Responsive layout** — `fr`-based grid with drag-to-resize and a VSCode-style menu in the top toolbar to show / hide each panel.
 - **Bridge contract** event map: `zustand:snapshot`, `zustand:store-update`, `zustand:store-reset`, `zustand:request-snapshot`, `zustand:patch-value`, `zustand:delete-value`, `zustand:replace-state`, `zustand:call-action` (with optional `args`), `zustand:reset-store`.
 
-[Unreleased]: https://github.com/erpipi/rozenite-zustand-manager/compare/v0.0.1...HEAD
-[0.0.1]: https://github.com/erpipi/rozenite-zustand-manager/releases/tag/v0.0.1
+[Unreleased]: https://github.com/malopezr7/rozenite-zustand-manager/compare/v0.0.1...HEAD
+[0.0.1]: https://github.com/malopezr7/rozenite-zustand-manager/releases/tag/v0.0.1

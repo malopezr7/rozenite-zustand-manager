@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { getPathValue } from '../../common/utils/stateUtils';
 import type { Snapshot, StoreDescriptor, TimelineEvent, TimelineKind } from './types';
 
-const PLUGIN_ID = '@rozenite/zustand-manager';
+const PLUGIN_ID = 'rozenite-zustand-manager';
 const REQUEST_SNAPSHOT_PAYLOAD = { reason: 'panel-request' };
 
 type BridgeEvents = {
