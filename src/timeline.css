@@ -1,0 +1,260 @@
+/* ───── Timeline view ───── */
+.zm-timeline {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.zm-timeline-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 var(--s-3);
+  height: 32px;
+  background: var(--bg-2);
+  border-bottom: 1px solid var(--line-1);
+  font-size: var(--fs-12);
+  color: var(--fg-2);
+}
+.zm-events {
+  overflow: auto;
+  flex: 1;
+}
+.zm-event {
+  display: grid;
+  grid-template-columns: 64px 18px 1fr 80px 80px;
+  align-items: center;
+  gap: 8px;
+  padding: 6px var(--s-3);
+  border-bottom: 1px solid var(--line-1);
+  font-family: var(--font-mono);
+  font-size: var(--fs-12);
+  cursor: pointer;
+  position: relative;
+}
+.zm-event:hover {
+  background: var(--bg-3);
+}
+.zm-event.is-active {
+  background: var(--bg-4);
+}
+.zm-event.is-active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--accent);
+}
+.zm-event .ts {
+  color: var(--fg-4);
+  font-variant-numeric: tabular-nums;
+}
+.zm-event .marker {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-3);
+  color: var(--fg-3);
+  border: 1px solid var(--line-1);
+}
+.zm-event.kind-action .marker {
+  color: var(--accent);
+  border-color: color-mix(in oklab, var(--accent) 50%, var(--line-1));
+}
+.zm-event.kind-replace .marker {
+  color: var(--warn);
+  border-color: color-mix(in oklab, var(--warn) 50%, var(--line-1));
+}
+.zm-event.kind-reset .marker {
+  color: var(--danger);
+  border-color: color-mix(in oklab, var(--danger) 50%, var(--line-1));
+}
+.zm-event.kind-edit .marker {
+  color: var(--ok);
+  border-color: color-mix(in oklab, var(--ok) 50%, var(--line-1));
+}
+.zm-event .label {
+  color: var(--fg-1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.zm-event .label .label-meta {
+  color: var(--fg-4);
+  margin-left: 8px;
+}
+.zm-event .deltas {
+  display: inline-flex;
+  gap: 6px;
+  font-variant-numeric: tabular-nums;
+  font-size: 11px;
+}
+.zm-event .deltas .d-add {
+  color: var(--ok);
+}
+.zm-event .deltas .d-rem {
+  color: var(--danger);
+}
+.zm-event .dur {
+  text-align: right;
+  color: var(--fg-3);
+  font-size: 11px;
+}
+
+/* Diff panel */
+.zm-diff-panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.zm-diff-head {
+  padding: 8px var(--s-3);
+  background: var(--bg-2);
+  border-bottom: 1px solid var(--line-1);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.zm-diff-head .row1 {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-12);
+}
+.zm-diff-head .row1 .arrow {
+  color: var(--fg-4);
+}
+.zm-diff-head .row2 {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--fg-3);
+}
+.zm-diff-body {
+  flex: 1;
+  overflow: auto;
+  font-family: var(--font-mono);
+  font-size: var(--fs-12);
+}
+.zm-diff-row {
+  display: grid;
+  grid-template-columns: 14px 1fr;
+  gap: 8px;
+  padding: 2px var(--s-3);
+  line-height: 18px;
+}
+.zm-diff-row.is-add {
+  background: var(--diff-add-bg);
+  color: var(--diff-add-fg);
+}
+.zm-diff-row.is-rem {
+  background: var(--diff-rem-bg);
+  color: var(--diff-rem-fg);
+}
+.zm-diff-row.is-mod-from {
+  background: var(--diff-rem-bg);
+  color: var(--diff-rem-fg);
+}
+.zm-diff-row.is-mod-to {
+  background: var(--diff-add-bg);
+  color: var(--diff-add-fg);
+}
+.zm-diff-row .m {
+  color: var(--fg-4);
+}
+.zm-diff-row.is-add .m {
+  color: var(--ok);
+}
+.zm-diff-row.is-rem .m,
+.zm-diff-row.is-mod-from .m {
+  color: var(--danger);
+}
+.zm-diff-row.is-mod-to .m {
+  color: var(--ok);
+}
+.zm-diff-foot {
+  padding: 8px var(--s-3);
+  border-top: 1px solid var(--line-1);
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  background: var(--bg-1);
+}
+
+/* ───── Empty / state overlays ───── */
+.zm-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+  padding: var(--s-5);
+  color: var(--fg-3);
+}
+.zm-empty .glyph {
+  width: 72px;
+  height: 72px;
+  border: 1px dashed var(--line-2);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--fg-4);
+  margin-bottom: var(--s-3);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  position: relative;
+}
+.zm-empty h3 {
+  font-size: 14px;
+  margin: 0 0 4px;
+  color: var(--fg-1);
+  font-weight: 500;
+}
+.zm-empty p {
+  margin: 0 0 var(--s-3);
+  font-size: var(--fs-12);
+  max-width: 360px;
+  line-height: 1.55;
+}
+.zm-empty .hints {
+  margin-top: var(--s-3);
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--line-1);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 12px;
+  font-size: 11px;
+  color: var(--fg-3);
+  max-width: 380px;
+  width: 100%;
+}
+.zm-empty .hints code {
+  font-family: var(--font-mono);
+  color: var(--fg-2);
+}
+
+/* High-frequency sparkline */
+.zm-spark {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 1px;
+  height: 10px;
+}
+.zm-spark span {
+  display: inline-block;
+  width: 2px;
+  background: var(--fg-4);
+  border-radius: 1px;
+  opacity: 0.7;
+}
+.zm-store.is-active .zm-spark span {
+  background: var(--accent);
+}

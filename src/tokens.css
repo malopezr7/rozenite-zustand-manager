@@ -1,0 +1,124 @@
+/* Zustand Manager — design tokens */
+:root {
+  /* Surfaces (dark — primary) */
+  --bg-0: oklch(0.16 0.005 250); /* app shell behind panel */
+  --bg-1: oklch(0.185 0.005 250); /* main canvas */
+  --bg-2: oklch(0.215 0.005 250); /* panels */
+  --bg-3: oklch(0.245 0.006 250); /* raised rows / hover */
+  --bg-4: oklch(0.275 0.007 250); /* selected row */
+  --bg-input: oklch(0.155 0.005 250); /* input wells */
+
+  /* Lines */
+  --line-1: oklch(0.27 0.006 250); /* hairline */
+  --line-2: oklch(0.33 0.007 250); /* stronger divider */
+  --line-focus: oklch(0.72 0.16 230);
+
+  /* Text */
+  --fg-1: oklch(0.94 0.004 250); /* primary */
+  --fg-2: oklch(0.78 0.006 250); /* secondary */
+  --fg-3: oklch(0.62 0.008 250); /* muted / labels */
+  --fg-4: oklch(0.48 0.008 250); /* very muted */
+  --fg-disabled: oklch(0.4 0.006 250);
+
+  /* Type semantics (tuned for long sessions, low chroma) */
+  --t-string: oklch(0.8 0.1 145);
+  --t-number: oklch(0.8 0.12 70);
+  --t-boolean: oklch(0.78 0.12 285);
+  --t-null: oklch(0.58 0.005 250);
+  --t-function: oklch(0.78 0.09 215);
+  --t-symbol: oklch(0.78 0.1 320);
+  --t-redacted: oklch(0.66 0.06 30);
+  --t-key: oklch(0.86 0.02 250);
+
+  /* Actions */
+  --accent: oklch(0.72 0.16 230);
+  --accent-bg: oklch(0.3 0.08 230);
+  --accent-soft: oklch(0.24 0.04 230);
+  --warn: oklch(0.78 0.13 80);
+  --warn-bg: oklch(0.3 0.06 80);
+  --danger: oklch(0.68 0.17 25);
+  --danger-bg: oklch(0.3 0.09 25);
+  --ok: oklch(0.74 0.13 150);
+  --ok-bg: oklch(0.28 0.06 150);
+
+  /* Diff */
+  --diff-add-bg: color-mix(in oklab, var(--ok) 14%, transparent);
+  --diff-add-fg: oklch(0.85 0.1 150);
+  --diff-rem-bg: color-mix(in oklab, var(--danger) 14%, transparent);
+  --diff-rem-fg: oklch(0.82 0.1 25);
+
+  /* Type */
+  --font-ui: "Inter", -apple-system, "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --fs-11: 11px;
+  --fs-12: 12px;
+  --fs-13: 13px;
+  --fs-14: 14px;
+  --fs-18: 18px;
+
+  /* Spacing */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+
+  /* Radius */
+  --r-1: 3px;
+  --r-2: 4px;
+  --r-3: 6px;
+
+  /* Rows */
+  --row-h: 24px;
+  --row-h-sm: 22px;
+}
+
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg-0);
+  color: var(--fg-1);
+  font-family: var(--font-ui);
+  font-size: var(--fs-13);
+  -webkit-font-smoothing: antialiased;
+}
+button {
+  font-family: inherit;
+}
+::selection {
+  background: color-mix(in oklab, var(--accent) 35%, transparent);
+}
+
+/* Scrollbars (DevTools-style) */
+.zm ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.zm ::-webkit-scrollbar-track {
+  background: transparent;
+}
+.zm ::-webkit-scrollbar-thumb {
+  background: var(--line-2);
+  border-radius: 6px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+.zm ::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.4 0.006 250);
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+/* Focus rings — visible, not colored over content */
+.zm :focus-visible {
+  outline: 1px solid var(--line-focus);
+  outline-offset: -1px;
+}
+.zm button:focus-visible,
+.zm [role="button"]:focus-visible {
+  outline: 1px solid var(--line-focus);
+}
