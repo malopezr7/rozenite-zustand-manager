@@ -1,0 +1,96 @@
+name: 🐛 Bug report
+description: Report a bug in @rozenite/zustand-manager
+labels: [bug, triage]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file a bug report! Before continuing, please search [existing issues](https://github.com/erpipi/rozenite-zustand-manager/issues) to make sure the bug isn't already tracked.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: A clear and concise description of the bug, what you expected, and what actually happened.
+      placeholder: |
+        When I open the Zustand Manager panel, the inspector shows ...
+        I expected ... but got ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Minimal reproduction
+      description: |
+        A minimal store + component that reproduces the bug. Snippets are fine; if it's complex, link to a stripped-down repo.
+      render: typescript
+      placeholder: |
+        import { create } from 'zustand';
+
+        export const useExampleStore = create<State>()((set) => ({
+          // ...
+        }));
+    validations:
+      required: true
+
+  - type: dropdown
+    id: registration
+    attributes:
+      label: Registration mode
+      description: How is the affected store registered?
+      options:
+        - Metro autodiscovery
+        - Manual `registerZustandStore`
+        - Manual `useZustandManager` hook
+        - Not sure
+    validations:
+      required: true
+
+  - type: input
+    id: rn-version
+    attributes:
+      label: React Native version
+      placeholder: '0.85.2'
+    validations:
+      required: true
+
+  - type: input
+    id: zustand-version
+    attributes:
+      label: Zustand version
+      placeholder: '5.0.12'
+    validations:
+      required: true
+
+  - type: input
+    id: plugin-version
+    attributes:
+      label: Plugin version
+      placeholder: '0.0.1'
+    validations:
+      required: true
+
+  - type: input
+    id: rozenite-version
+    attributes:
+      label: Rozenite + @rozenite/metro versions
+      placeholder: '1.7.0 / 1.7.0'
+
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      multiple: true
+      options:
+        - iOS (simulator)
+        - iOS (device)
+        - Android (emulator)
+        - Android (device)
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / errors
+      description: Paste any relevant error messages from Metro, the device, or the DevTools panel. Wrap with code fences for readability.
+      render: shell

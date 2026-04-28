@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Rozenite Discord
+    url: https://discord.gg/xgGt7KAjxv
+    about: Quick questions, share what you build, chat with the Rozenite community.
+  - name: 📚 Rozenite documentation
+    url: https://www.rozenite.dev
+    about: Read the Rozenite docs for general DevTools framework questions.
