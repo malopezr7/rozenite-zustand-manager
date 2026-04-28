@@ -1,0 +1,41 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Build / runtime artefacts
+node_modules
+dist
+dist-ssr
+.vite
+*.tsbuildinfo
+*.local
+
+# Native / iOS / Android build output (example app)
+example/ios/Pods
+example/ios/build
+example/ios/.xcode.env.local
+example/android/.gradle
+example/android/build
+example/android/app/build
+example/android/local.properties
+example/.bundle
+example/vendor
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Misc
+.claude/
