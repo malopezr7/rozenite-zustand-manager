@@ -1,9 +1,10 @@
 {
-  "name": "rozenite-zustand-manager",
-  "version": "0.0.1",
-  "description": "Rozenite DevTools plugin to inspect, edit, and time-travel Zustand stores in React Native apps.",
+  "name": "rozenite-zustand-manager-monorepo",
+  "private": true,
+  "type": "module",
+  "description": "Workspace root for the rozenite-zustand-manager Rozenite plugin.",
   "license": "MIT",
-  "author": "Manuel Lopez",
+  "author": "Manuel Lopez <malopezr7@gmail.com>",
   "homepage": "https://github.com/malopezr7/rozenite-zustand-manager#readme",
   "repository": {
     "type": "git",
@@ -12,58 +13,20 @@
   "bugs": {
     "url": "https://github.com/malopezr7/rozenite-zustand-manager/issues"
   },
-  "keywords": [
-    "rozenite",
-    "rozenite-plugin",
-    "zustand",
-    "react-native",
-    "devtools",
-    "state-management",
-    "debugger",
-    "metro"
-  ],
-  "type": "module",
-  "main": "./dist/react-native/index.cjs",
-  "module": "./dist/react-native/index.js",
-  "types": "./dist/react-native/index.d.ts",
-  "react-native": "./dist/react-native/index.js",
-  "exports": {
-    ".": {
-      "types": "./dist/react-native/index.d.ts",
-      "import": "./dist/react-native/index.js",
-      "require": "./dist/react-native/index.cjs"
-    },
-    "./metro": {
-      "types": "./dist/metro/index.d.ts",
-      "import": "./dist/metro/index.js",
-      "require": "./dist/metro/index.cjs"
-    },
-    "./package.json": "./package.json"
-  },
-  "files": [
-    "dist",
-    "README.md",
-    "LICENSE"
-  ],
-  "publishConfig": {
-    "access": "public",
-    "tag": "alpha"
-  },
   "scripts": {
-    "build": "pnpm typecheck && pnpm lint && pnpm test && pnpm build:web && pnpm build:plugin",
-    "build:plugin": "rozenite build",
-    "build:web": "vite build",
-    "dev": "rozenite dev",
-    "dev:web": "vite",
+    "build": "pnpm --filter rozenite-zustand-manager build",
+    "build:plugin": "pnpm --filter rozenite-zustand-manager build:plugin",
+    "build:web": "pnpm --filter rozenite-zustand-manager build:web",
+    "dev": "pnpm --filter rozenite-zustand-manager dev",
+    "dev:web": "pnpm --filter rozenite-zustand-manager dev:web",
     "example:start": "pnpm --dir example start",
     "format": "biome format --write .",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
-    "preview": "vite preview",
     "prepare": "husky",
-    "prepublishOnly": "pnpm build",
-    "test": "vitest run src",
-    "typecheck": "tsc --noEmit"
+    "preview": "pnpm --filter rozenite-zustand-manager preview",
+    "test": "pnpm --filter rozenite-zustand-manager test",
+    "typecheck": "pnpm --filter rozenite-zustand-manager typecheck"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx,json,css}": [
@@ -73,34 +36,10 @@
   "engines": {
     "node": ">=20"
   },
-  "peerDependencies": {
-    "react": ">=18",
-    "react-native": ">=0.74",
-    "zustand": "^5.0.0"
-  },
-  "dependencies": {
-    "@rozenite/plugin-bridge": "^1.7.0"
-  },
   "devDependencies": {
     "@biomejs/biome": "^2.4.13",
-    "@rozenite/metro": "^1.7.0",
-    "@rozenite/vite-plugin": "^1.7.0",
-    "@tailwindcss/vite": "4.2.4",
-    "@types/node": "^25.6.0",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^4.7.0",
     "husky": "^9.1.7",
-    "lint-staged": "^16.4.0",
-    "react": "19.2.3",
-    "react-dom": "19.2.3",
-    "react-native": "^0.85.2",
-    "react-native-web": "^0.21.2",
-    "rozenite": "^1.7.0",
-    "tailwindcss": "4.2.4",
-    "typescript": "~6.0.2",
-    "vite": "^7.3.2",
-    "vitest": "^4.1.5",
-    "zustand": "^5.0.12"
-  }
+    "lint-staged": "^16.4.0"
+  },
+  "packageManager": "pnpm@10.33.0+sha512.10568bb4a6afb58c9eb3630da90cc9516417abebd3fabbe6739f0ae795728da1491e9db5a544c76ad8eb7570f5c4bb3d6c637b2cb41bfdcdb47fa823c8649319"
 }

@@ -36,10 +36,10 @@ jobs:
 
       - name: Verify version matches tag
         run: |
-          PKG=$(node -p "require('./package.json').version")
+          PKG=$(node -p "require('./packages/rozenite-zustand-manager/package.json').version")
           TAG="${GITHUB_REF_NAME#v}"
           if [ "$PKG" != "$TAG" ]; then
-            echo "::error::package.json version ($PKG) does not match tag ($TAG)"
+            echo "::error::packages/rozenite-zustand-manager version ($PKG) does not match tag ($TAG)"
             exit 1
           fi
 
@@ -50,7 +50,7 @@ jobs:
         run: pnpm build:web && pnpm build:plugin
 
       - name: Publish to npm
-        run: pnpm publish --access public --no-git-checks
+        run: pnpm --filter rozenite-zustand-manager publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 

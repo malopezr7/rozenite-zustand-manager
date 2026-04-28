@@ -40,6 +40,9 @@ jobs:
       - name: Typecheck
         run: pnpm typecheck
 
+      - name: Lint
+        run: pnpm lint
+
       - name: Test
         run: pnpm test
 
@@ -47,4 +50,4 @@ jobs:
         run: pnpm build:web && pnpm build:plugin
 
       - name: Pack (smoke test)
-        run: pnpm pack --pack-destination /tmp/
+        run: pnpm --filter rozenite-zustand-manager pack --pack-destination /tmp/
