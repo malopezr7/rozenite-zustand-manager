@@ -1,6 +1,6 @@
 {
   "name": "rozenite-zustand-manager",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Rozenite DevTools plugin to inspect, edit, and time-travel Zustand stores in React Native apps.",
   "license": "MIT",
   "author": "Manuel Lopez <malopezr7@gmail.com>",
