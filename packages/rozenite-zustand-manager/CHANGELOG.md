@@ -6,6 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 
 ## [Unreleased]
 
+## [0.0.3] - 2026-04-29
+
+### Changed
+
+- **Node.js 22 is now the minimum supported version.** `engines.node` bumped from `>=20` to `>=22` at both the workspace root and the published package. Drops Node 20 from the CI matrix (`pnpm/action-setup@v6` ships a pnpm version that imports `node:sqlite`, which doesn't exist until Node 22). Consumers on Node 20 should stay on 0.0.2 or bump their runtime.
+- **Workspace tooling on the latest majors** (came in via the 0.0.2 → 0.0.3 dependabot wave on `main`):
+  - `vite` 7 → 8
+  - `@vitejs/plugin-react` 4 → 6 (Babel-free, uses Vite 8's Oxc transform for React Refresh)
+  - `typescript` 6.0.2 → 6.0.3
+  - `@react-native-community/cli-platform-ios` 20.1.0 → 20.1.3
+  - GitHub Actions: `actions/checkout` v4 → v6, `actions/setup-node` v4 → v6, `pnpm/action-setup` v4 → v6, `softprops/action-gh-release` v2 → v3.
+
+### Removed
+
+- **ESLint, Prettier, and Jest dropped from the example app.** Biome at the workspace root already covers linting and formatting, and the published plugin's tests live under `packages/rozenite-zustand-manager/src/__tests__/` (vitest, 39 tests). The React Native CLI scaffold pulled in tooling that nobody ran in CI — pure noise. Net `-2,619` lines from the lockfile alone.
+
 ## [0.0.2] - 2026-04-29
 
 ### Fixed
@@ -33,6 +49,7 @@ Initial alpha release.
 - **Responsive layout** — `fr`-based grid with drag-to-resize and a VSCode-style menu in the top toolbar to show / hide each panel.
 - **Bridge contract** event map: `zustand:snapshot`, `zustand:store-update`, `zustand:store-reset`, `zustand:request-snapshot`, `zustand:patch-value`, `zustand:delete-value`, `zustand:replace-state`, `zustand:call-action` (with optional `args`), `zustand:reset-store`.
 
-[Unreleased]: https://github.com/malopezr7/rozenite-zustand-manager/compare/v0.0.2...HEAD
+[Unreleased]: https://github.com/malopezr7/rozenite-zustand-manager/compare/v0.0.3...HEAD
+[0.0.3]: https://github.com/malopezr7/rozenite-zustand-manager/compare/v0.0.2...v0.0.3
 [0.0.2]: https://github.com/malopezr7/rozenite-zustand-manager/compare/v0.0.1...v0.0.2
 [0.0.1]: https://github.com/malopezr7/rozenite-zustand-manager/releases/tag/v0.0.1
