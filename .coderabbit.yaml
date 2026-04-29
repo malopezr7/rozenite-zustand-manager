@@ -1,0 +1,63 @@
+# https://docs.coderabbit.ai/guides/configure-coderabbit
+language: en-US
+early_access: false
+
+reviews:
+  profile: chill
+  request_changes_workflow: false
+  high_level_summary: true
+  poem: false
+  review_status: true
+  collapse_walkthrough: true
+  auto_review:
+    enabled: true
+    drafts: false
+    base_branches:
+      - main
+  path_instructions:
+    - path: 'packages/rozenite-zustand-manager/react-native.ts'
+      instructions: |
+        Singleton runtime that talks to the Rozenite bridge. The plugin id and
+        bridge event map MUST stay in sync with
+        packages/rozenite-zustand-manager/src/features/zustand-panel/useZustandManagerPanel.ts.
+        Flag any mismatch in event names or payload shapes.
+    - path: 'packages/rozenite-zustand-manager/metro.ts'
+      instructions: |
+        Babel transformer wrapper. The regex in __unstableTransformZustandSource
+        must only match module-level (column-zero) const declarations — indented
+        declarations inside function bodies must NOT be instrumented (closure
+        scoping crashes the module on load). Flag any regex change that loses
+        this property.
+    - path: 'packages/rozenite-zustand-manager/src/lib/zustandManagerCore.ts'
+      instructions: |
+        Runtime-shared core. Must remain framework-free (no React, no DOM).
+        Path-patching helpers always return top-level partials so
+        setState(partial, false) merges instead of wiping store actions.
+        Sanitization helpers must preserve array indices and never write
+        REDACTED_VALUE or FUNCTION_PLACEHOLDER markers back to real state.
+    - path: 'packages/rozenite-zustand-manager/src/features/zustand-panel/useZustandManagerPanel.ts'
+      instructions: |
+        Only place that holds bridge subscriptions; views never talk to the
+        bridge directly. The BridgeEvents type must mirror ZustandManagerEvents
+        in react-native.ts.
+    - path: 'packages/rozenite-zustand-manager/src/__tests__/**'
+      instructions: |
+        Vitest specs. Each topic has its own file — extend the matching one
+        rather than creating a new spec. Tests should describe the behavior or
+        regression they prevent, not just the function.
+    - path: 'example/**'
+      instructions: |
+        Bare React Native sample app, dev-only. Only review for breakage of the
+        plugin integration (metro.config.js, store wiring). Skip review of
+        boilerplate scaffolding.
+
+chat:
+  auto_reply: true
+
+knowledge_base:
+  learnings:
+    scope: auto
+  issues:
+    scope: auto
+  pull_requests:
+    scope: auto
