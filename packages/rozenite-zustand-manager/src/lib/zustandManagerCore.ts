@@ -96,10 +96,18 @@ function shouldRedact(key: string, redactPattern: RegExp): boolean {
   return redactPattern.test(key);
 }
 
+/**
+ * Reserved string that identified function values in older versions of the bridge.
+ * Kept exported so {@link stripSanitizationMarkers} can still scrub it from any
+ * payload sent by an out-of-date runtime.
+ */
 export const FUNCTION_PLACEHOLDER = '__zm_function__';
 
 function sanitizeWithSeen(value: unknown, redactPattern: RegExp, currentKey: string, seen: WeakSet<object>): unknown {
-  if (typeof value === 'function') return FUNCTION_PLACEHOLDER;
+  // Functions are actions, not state — they appear in the dedicated Actions panel.
+  // Returning undefined drops the key in object contexts; array contexts coerce to
+  // null below to preserve indices.
+  if (typeof value === 'function') return undefined;
   if (shouldRedact(currentKey, redactPattern)) return REDACTED_VALUE;
   if (value === null || value === undefined) return value;
   if (typeof value === 'bigint') return String(value);
@@ -113,16 +121,20 @@ function sanitizeWithSeen(value: unknown, redactPattern: RegExp, currentKey: str
     const entries: [string, unknown][] = [];
     for (const [mapKey, mapValue] of value.entries()) {
       const keyStr = typeof mapKey === 'string' ? mapKey : String(mapKey);
-      entries.push([keyStr, sanitizeWithSeen(mapValue, redactPattern, keyStr, seen)]);
+      const sanitized = sanitizeWithSeen(mapValue, redactPattern, keyStr, seen);
+      if (sanitized !== undefined) entries.push([keyStr, sanitized]);
     }
     return Object.fromEntries(entries);
   }
   if (value instanceof Set) {
-    return Array.from(value).map((entry) => sanitizeWithSeen(entry, redactPattern, '', seen));
+    return Array.from(value).map((entry) => {
+      const sanitized = sanitizeWithSeen(entry, redactPattern, '', seen);
+      return sanitized === undefined ? null : sanitized;
+    });
   }
 
   if (Array.isArray(value)) {
-    // Preserve length: undefined slots stay null on the wire; functions become a placeholder.
+    // Preserve indices: drop functions / undefined to null so paths like items[2] stay stable.
     return value.map((entry) => {
       const sanitized = sanitizeWithSeen(entry, redactPattern, '', seen);
       return sanitized === undefined ? null : sanitized;

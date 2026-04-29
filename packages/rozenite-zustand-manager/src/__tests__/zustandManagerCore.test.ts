@@ -90,28 +90,32 @@ describe('getActionDescriptors', () => {
 });
 
 describe('createSanitizedSnapshot', () => {
-  it('replaces functions with a placeholder and redacts sensitive values recursively', () => {
+  it('drops function-valued object properties so Zustand actions do not pollute the state tree', () => {
     const state = {
       user: { email: 'marta@acme.dev', name: 'Marta' },
       session: { accessToken: 'secret-token' },
       signOut: () => undefined,
+      addItem: (id: string) => id,
     };
 
-    expect(createSanitizedSnapshot(state)).toEqual({
+    const snapshot = createSanitizedSnapshot(state) as Record<string, unknown>;
+
+    expect(snapshot).toEqual({
       user: { email: REDACTED_VALUE, name: 'Marta' },
       session: { accessToken: REDACTED_VALUE },
-      signOut: FUNCTION_PLACEHOLDER,
     });
+    expect(Object.hasOwn(snapshot, 'signOut')).toBe(false);
+    expect(Object.hasOwn(snapshot, 'addItem')).toBe(false);
   });
 
-  it('preserves array length when entries contain functions or undefined', () => {
+  it('preserves array indices when entries contain functions or undefined', () => {
     const state = { items: [1, () => undefined, 3, undefined, 5] };
 
     const snapshot = createSanitizedSnapshot(state) as { items: unknown[] };
 
     expect(snapshot.items).toHaveLength(5);
     expect(snapshot.items[0]).toBe(1);
-    expect(snapshot.items[1]).toBe(FUNCTION_PLACEHOLDER);
+    expect(snapshot.items[1]).toBeNull();
     expect(snapshot.items[2]).toBe(3);
     expect(snapshot.items[3]).toBeNull();
     expect(snapshot.items[4]).toBe(5);
