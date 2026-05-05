@@ -55,8 +55,8 @@ importers:
         specifier: 20.1.3
         version: 20.1.3(typescript@6.0.3)
       '@react-native-community/cli-platform-android':
-        specifier: 20.1.0
-        version: 20.1.0
+        specifier: 20.1.3
+        version: 20.1.3
       '@react-native-community/cli-platform-ios':
         specifier: 20.1.3
         version: 20.1.3
@@ -1127,9 +1127,6 @@ packages:
   '@react-native-community/cli-clean@20.1.3':
     resolution: {integrity: sha512-sFLdLzapfC0scjgzBJJWYDY2RhHPjuuPkA5r6q0gc/UQH/izXpMpLrhh1DW84cMDraNACK0U62tU7ebNaQ1LMQ==}
 
-  '@react-native-community/cli-config-android@20.1.0':
-    resolution: {integrity: sha512-3A01ZDyFeCALzzPcwP/fleHoP3sGNq1UX7FzxkTrOFX8RRL9ntXNXQd27E56VU4BBxGAjAJT4Utw8pcOjJceIA==}
-
   '@react-native-community/cli-config-android@20.1.3':
     resolution: {integrity: sha512-DNHDP+OWLyhKShGciBqPcxhxfp1Z/7GQcb4F+TGyCeKQAr+JdnUjRXN3X+YCU/v+g2kbYYyRJKlGabzkVvdrAw==}
 
@@ -1142,9 +1139,6 @@ packages:
   '@react-native-community/cli-doctor@20.1.3':
     resolution: {integrity: sha512-EI+mAPWn255/WZ4CQohy1I049yiaxVr41C3BeQ2BCyhxODIDR8XRsLzYb1t9MfqK/C3ZncUN2mPSRXFeKPPI1w==}
 
-  '@react-native-community/cli-platform-android@20.1.0':
-    resolution: {integrity: sha512-TeHPDThOwDppQRpndm9kCdRCBI8AMy3HSIQ+iy7VYQXL5BtZ5LfmGdusoj7nVN/ZGn0Lc6Gwts5qowyupXdeKg==}
-
   '@react-native-community/cli-platform-android@20.1.3':
     resolution: {integrity: sha512-bzB9ELPOISuqgtDZXFPQlkuxx1YFkNx3cNgslc5ElCrk+5LeCLQLIBh/dmIuK8rwUrPcrramjeBj++Noc+TaAA==}
 
@@ -1156,9 +1150,6 @@ packages:
 
   '@react-native-community/cli-server-api@20.1.3':
     resolution: {integrity: sha512-hsNsdUKZDd2T99OuNuiXz4VuvLa1UN0zcxefmPjXQgI0byrBLzzDr+o7p03sKuODSzKi2h+BMnUxiS07HACQLA==}
-
-  '@react-native-community/cli-tools@20.1.0':
-    resolution: {integrity: sha512-/YmzHGOkY6Bgrv4OaA1L8rFqsBlQd1EB2/ipAoKPiieV0EcB5PUamUSuNeFU3sBZZTYQCUENwX4wgOHgFUlDnQ==}
 
   '@react-native-community/cli-tools@20.1.3':
     resolution: {integrity: sha512-EAn0vPCMxtHhfWk2UwLmSUfPfLUnFgC7NjiVJVTKJyVk5qGnkPfoT8te/1IUXFTysUB0F0RIi+NgDB4usFOLeA==}
@@ -2435,12 +2426,15 @@ packages:
   fast-xml-builder@1.1.5:
     resolution: {integrity: sha512-4TJn/8FKLeslLAH3dnohXqE3QSoxkhvaMzepOIZytwJXZO69Bfz0HBdDHzOTOon6G59Zrk6VQ2bEiv1t61rfkA==}
 
-  fast-xml-parser@4.5.6:
-    resolution: {integrity: sha512-Yd4vkROfJf8AuJrDIVMVmYfULKmIJszVsMv7Vo71aocsKgFxpdlpSHXSaInvyYfgw2PRuObQSW2GFpVMUjxu9A==}
-    hasBin: true
+  fast-xml-builder@1.1.8:
+    resolution: {integrity: sha512-sDVBc2gg8pSKvcbE8rBmOyjSGQf0AdsbqvHeIOv3D/uYNoV4eCReQXyDF8Pdv8+m1FHazACypSz2hR7O2S1LLw==}
 
   fast-xml-parser@5.7.2:
     resolution: {integrity: sha512-P7oW7tLbYnhOLQk/Gv7cZgzgMPP/XN03K02/Jy6Y/NHzyIAIpxuZIM/YqAkfiXFPxA2CTm7NtCijK9EDu09u2w==}
+    hasBin: true
+
+  fast-xml-parser@5.7.3:
+    resolution: {integrity: sha512-C0AaNuC+mscy6vrAQKAc/rMq+zAPHodfHGZu4sGVehvAQt/JLG1O5zEcYcXSY5zSqr4YVgxsB+pHXTq0i7eDlg==}
     hasBin: true
 
   fastq@1.20.1:
@@ -3688,9 +3682,6 @@ packages:
   strip-final-newline@2.0.0:
     resolution: {integrity: sha512-BrpvfNAE3dcvq7ll3xVumzjKjZQ5tI1sEUIKr3Uoks0XUl45St3FlatVqef9prk4jRDzhW6WZg+3bk93y6pLjA==}
     engines: {node: '>=6'}
-
-  strnum@1.1.2:
-    resolution: {integrity: sha512-vrN+B7DBIoTTZjnPNewwhx6cBA/H+IS7rfW68n7XxC1y7uoiGQBxaKzqucGUgavX15dJgiGztLJ8vxuEzwqBdA==}
 
   strnum@2.2.3:
     resolution: {integrity: sha512-oKx6RUCuHfT3oyVjtnrmn19H1SiCqgJSg+54XqURKp5aCMbrXrhLjRN9TjuwMjiYstZ0MzDrHqkGZ5dFTKd+zg==}
@@ -5244,18 +5235,11 @@ snapshots:
       fast-glob: 3.3.3
       picocolors: 1.1.1
 
-  '@react-native-community/cli-config-android@20.1.0':
-    dependencies:
-      '@react-native-community/cli-tools': 20.1.0
-      fast-glob: 3.3.3
-      fast-xml-parser: 4.5.6
-      picocolors: 1.1.1
-
   '@react-native-community/cli-config-android@20.1.3':
     dependencies:
       '@react-native-community/cli-tools': 20.1.3
       fast-glob: 3.3.3
-      fast-xml-parser: 5.7.2
+      fast-xml-parser: 5.7.3
       picocolors: 1.1.1
 
   '@react-native-community/cli-config-apple@20.1.3':
@@ -5296,14 +5280,6 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  '@react-native-community/cli-platform-android@20.1.0':
-    dependencies:
-      '@react-native-community/cli-config-android': 20.1.0
-      '@react-native-community/cli-tools': 20.1.0
-      execa: 5.1.1
-      logkitty: 0.7.1
-      picocolors: 1.1.1
-
   '@react-native-community/cli-platform-android@20.1.3':
     dependencies:
       '@react-native-community/cli-config-android': 20.1.3
@@ -5341,19 +5317,6 @@ snapshots:
       - bufferutil
       - supports-color
       - utf-8-validate
-
-  '@react-native-community/cli-tools@20.1.0':
-    dependencies:
-      '@vscode/sudo-prompt': 9.3.2
-      appdirsjs: 1.2.7
-      execa: 5.1.1
-      find-up: 5.0.0
-      launch-editor: 2.13.2
-      mime: 2.6.0
-      ora: 5.4.1
-      picocolors: 1.1.1
-      prompts: 2.4.2
-      semver: 7.7.4
 
   '@react-native-community/cli-tools@20.1.3':
     dependencies:
@@ -6705,14 +6668,21 @@ snapshots:
     dependencies:
       path-expression-matcher: 1.5.0
 
-  fast-xml-parser@4.5.6:
+  fast-xml-builder@1.1.8:
     dependencies:
-      strnum: 1.1.2
+      path-expression-matcher: 1.5.0
 
   fast-xml-parser@5.7.2:
     dependencies:
       '@nodable/entities': 2.1.0
       fast-xml-builder: 1.1.5
+      path-expression-matcher: 1.5.0
+      strnum: 2.2.3
+
+  fast-xml-parser@5.7.3:
+    dependencies:
+      '@nodable/entities': 2.1.0
+      fast-xml-builder: 1.1.8
       path-expression-matcher: 1.5.0
       strnum: 2.2.3
 
@@ -8166,8 +8136,6 @@ snapshots:
       ansi-regex: 6.2.2
 
   strip-final-newline@2.0.0: {}
-
-  strnum@1.1.2: {}
 
   strnum@2.2.3: {}
 
