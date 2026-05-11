@@ -71,11 +71,11 @@
     "zustand": "^5.0.0"
   },
   "dependencies": {
-    "@rozenite/plugin-bridge": "^1.7.0"
+    "@rozenite/plugin-bridge": "^1.8.1"
   },
   "devDependencies": {
-    "@rozenite/metro": "^1.7.0",
-    "@rozenite/vite-plugin": "^1.7.0",
+    "@rozenite/metro": "^1.8.1",
+    "@rozenite/vite-plugin": "^1.8.1",
     "@tailwindcss/vite": "4.3.0",
     "@types/node": "^25.6.2",
     "@types/react": "^19.2.14",
@@ -85,7 +85,7 @@
     "react-dom": "19.2.5",
     "react-native": "^0.85.2",
     "react-native-web": "^0.21.2",
-    "rozenite": "^1.7.0",
+    "rozenite": "^1.8.1",
     "tailwindcss": "4.3.0",
     "typescript": "~6.0.3",
     "vite": "^8.0.12",
