@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import {
   applyPathPatch,
   computeStoreId,
@@ -12,6 +12,7 @@ import {
   parsePath,
   REDACTED_VALUE,
   stripSanitizationMarkers,
+  wrapStoreActions,
 } from '../lib/zustandManagerCore.ts';
 
 describe('parsePath', () => {
@@ -225,6 +226,121 @@ describe('computeStoreId', () => {
 
   it('preserves an explicit id when given', () => {
     expect(computeStoreId({ id: 'explicit', name: 'useStore', file: 'src/auth.ts' })).toBe('explicit');
+  });
+});
+
+describe('wrapStoreActions', () => {
+  function makeStore<TState extends Record<string, unknown>>(initial: TState) {
+    let state: TState = initial;
+    const subscribers = new Set<(next: TState, prev: TState) => void>();
+    return {
+      getState: () => state,
+      setState: (partial: Partial<TState> | TState, replace?: boolean) => {
+        const prev = state;
+        state = replace ? (partial as TState) : ({ ...state, ...(partial as Partial<TState>) } as TState);
+        subscribers.forEach((listener) => listener(state, prev));
+      },
+      subscribe: (listener: (next: TState, prev: TState) => void) => {
+        subscribers.add(listener);
+        return () => subscribers.delete(listener);
+      },
+    };
+  }
+
+  it('replaces top-level functions with wrappers that call onInvoke with the action name before running the original', () => {
+    const onInvoke = vi.fn();
+    const original = vi.fn((amount: number) => amount * 2);
+    const store = makeStore({ count: 0, double: original });
+
+    const names = wrapStoreActions(store, onInvoke, () => undefined);
+
+    expect(names).toEqual(['double']);
+    const wrapped = store.getState().double as (amount: number) => number;
+    expect(wrapped).not.toBe(original);
+
+    const result = wrapped(5);
+
+    expect(result).toBe(10);
+    expect(onInvoke).toHaveBeenCalledTimes(1);
+    expect(onInvoke).toHaveBeenCalledWith('double');
+    expect(original).toHaveBeenCalledWith(5);
+    expect(onInvoke.mock.invocationCallOrder[0]).toBeLessThan(original.mock.invocationCallOrder[0]);
+  });
+
+  it('fires onComplete after the wrapped action returns (even when it throws)', () => {
+    const onComplete = vi.fn();
+    const store = makeStore({
+      ok: () => 'value',
+      boom: () => {
+        throw new Error('nope');
+      },
+    });
+
+    wrapStoreActions(store, () => undefined, onComplete);
+
+    (store.getState().ok as () => string)();
+    expect(onComplete).toHaveBeenCalledTimes(1);
+
+    expect(() => (store.getState().boom as () => void)()).toThrow('nope');
+    expect(onComplete).toHaveBeenCalledTimes(2);
+  });
+
+  it('preserves arity and toString so descriptors and inspector keep working', () => {
+    const original = (id: string, qty: number) => `${id}-${qty}`;
+    const store = makeStore({ addItem: original });
+
+    wrapStoreActions(
+      store,
+      () => undefined,
+      () => undefined,
+    );
+
+    const wrapped = store.getState().addItem as (id: string, qty: number) => string;
+    expect(wrapped.length).toBe(2);
+    expect(parseFunctionParams(wrapped)).toEqual(['id', 'qty']);
+  });
+
+  it('ignores non-function values', () => {
+    const store = makeStore({ count: 0, label: 'hi', items: [1, 2], nested: { fn: () => 1 } });
+
+    const names = wrapStoreActions(
+      store,
+      () => undefined,
+      () => undefined,
+    );
+
+    expect(names).toEqual([]);
+    expect(store.getState().count).toBe(0);
+    expect(store.getState().label).toBe('hi');
+  });
+
+  it('reports the inner action when one action calls another, then restores the outer on the next dispatch', () => {
+    const stack: string[] = [];
+    const seen: (string | undefined)[] = [];
+    const store = makeStore({
+      inner: () => {
+        seen.push(stack[stack.length - 1]);
+      },
+      outer() {
+        (store.getState().inner as () => void)();
+        seen.push(stack[stack.length - 1]);
+      },
+    });
+
+    wrapStoreActions(
+      store,
+      (name) => {
+        stack.push(name);
+      },
+      () => {
+        stack.pop();
+      },
+    );
+
+    (store.getState().outer as () => void)();
+
+    expect(seen).toEqual(['inner', 'outer']);
+    expect(stack).toEqual([]);
   });
 });
 
