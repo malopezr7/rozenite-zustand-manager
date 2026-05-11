@@ -2,7 +2,16 @@ import { getRozeniteDevToolsClient, type RozeniteDevToolsClient, type Subscripti
 import { useEffect, useMemo } from 'react';
 import type { StoreApi } from 'zustand/vanilla';
 
-import { applyPathPatch, computeStoreId, createSanitizedSnapshot, createStoreDescriptor, deleteAtPathRuntime, mergeFunctionsFromCurrent, stripSanitizationMarkers } from './src/lib/zustandManagerCore';
+import {
+  applyPathPatch,
+  computeStoreId,
+  createSanitizedSnapshot,
+  createStoreDescriptor,
+  deleteAtPathRuntime,
+  mergeFunctionsFromCurrent,
+  stripSanitizationMarkers,
+  wrapStoreActions,
+} from './src/lib/zustandManagerCore';
 
 const PLUGIN_ID = 'rozenite-zustand-manager';
 
@@ -35,6 +44,7 @@ type ZustandManagerEvents = {
 type RegisteredEntry = {
   entry: StoreEntry;
   unsubscribe: () => void;
+  rewrapActions: () => void;
 };
 
 type ZustandManagerRuntime = {
@@ -117,9 +127,13 @@ function createRuntime(): ZustandManagerRuntime {
   };
 
   const resetStore = (storeId: string) => {
-    const entry = findEntry(storeId);
-    if (!entry || typeof entry.store.getInitialState !== 'function') return false;
+    const registered = registeredEntries.get(storeId);
+    if (!registered) return false;
+    const { entry, rewrapActions } = registered;
+    if (typeof entry.store.getInitialState !== 'function') return false;
     entry.store.setState(entry.store.getInitialState(), true);
+    // getInitialState() returns the originals — re-wrap so action names keep flowing.
+    rewrapActions();
     client?.send('zustand:store-reset', { storeId, storeName: entry.name, timestamp: Date.now() });
     return true;
   };
@@ -181,7 +195,21 @@ function createRuntime(): ZustandManagerRuntime {
     const previous = registeredEntries.get(storeId);
     previous?.unsubscribe();
 
+    // Stack handles re-entrant actions (outer calls inner). Top = the closest action
+    // to the dispatched setState — that's the one we attribute the update to.
+    const actionStack: string[] = [];
+    const wrappableStore = entry.store as unknown as Parameters<typeof wrapStoreActions>[0];
+    const rewrapActions = () => {
+      wrapStoreActions(
+        wrappableStore,
+        (name) => actionStack.push(name),
+        () => actionStack.pop(),
+      );
+    };
+    rewrapActions();
+
     const unsubscribe = entry.store.subscribe((_state, previousState) => {
+      const action = actionStack[actionStack.length - 1];
       updateCounts.set(storeId, (updateCounts.get(storeId) ?? 0) + 1);
       exposeDebugApi();
       const updates = updateCounts.get(storeId) ?? 0;
@@ -190,10 +218,11 @@ function createRuntime(): ZustandManagerRuntime {
         store: createStoreDescriptor(entry, updates),
         previousState: sanitizedPrevious,
         timestamp: Date.now(),
+        ...(action ? { kind: 'action' as const, action } : {}),
       });
     });
 
-    registeredEntries.set(storeId, { entry, unsubscribe });
+    registeredEntries.set(storeId, { entry, unsubscribe, rewrapActions });
     exposeDebugApi();
     ensureBridge();
     sendSnapshot();
