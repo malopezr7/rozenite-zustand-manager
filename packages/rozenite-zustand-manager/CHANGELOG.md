@@ -67,7 +67,8 @@ Initial alpha release.
 - **Responsive layout** — `fr`-based grid with drag-to-resize and a VSCode-style menu in the top toolbar to show / hide each panel.
 - **Bridge contract** event map: `zustand:snapshot`, `zustand:store-update`, `zustand:store-reset`, `zustand:request-snapshot`, `zustand:patch-value`, `zustand:delete-value`, `zustand:replace-state`, `zustand:call-action` (with optional `args`), `zustand:reset-store`.
 
-[Unreleased]: https://github.com/malopezr7/rozenite-zustand-manager/compare/v0.0.3...HEAD
+[Unreleased]: https://github.com/malopezr7/rozenite-zustand-manager/compare/v0.0.4...HEAD
+[0.0.4]: https://github.com/malopezr7/rozenite-zustand-manager/compare/v0.0.3...v0.0.4
 [0.0.3]: https://github.com/malopezr7/rozenite-zustand-manager/compare/v0.0.2...v0.0.3
 [0.0.2]: https://github.com/malopezr7/rozenite-zustand-manager/compare/v0.0.1...v0.0.2
 [0.0.1]: https://github.com/malopezr7/rozenite-zustand-manager/releases/tag/v0.0.1
