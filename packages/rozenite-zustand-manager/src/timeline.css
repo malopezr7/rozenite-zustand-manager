@@ -21,7 +21,7 @@
 }
 .zm-event {
   display: grid;
-  grid-template-columns: 64px 18px 1fr 80px 80px;
+  grid-template-columns: auto 18px minmax(0, 1fr) auto auto;
   align-items: center;
   gap: 8px;
   padding: 6px var(--s-3);
@@ -30,6 +30,8 @@
   font-size: var(--fs-12);
   cursor: pointer;
   position: relative;
+  width: 100%;
+  text-align: left;
 }
 .zm-event:hover {
   background: var(--bg-3);
@@ -82,10 +84,15 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  min-width: 0;
 }
 .zm-event .label .label-meta {
   color: var(--fg-4);
   margin-left: 8px;
+}
+.zm-event .deltas,
+.zm-event .dur {
+  white-space: nowrap;
 }
 .zm-event .deltas {
   display: inline-flex;
@@ -100,9 +107,9 @@
   color: var(--danger);
 }
 .zm-event .dur {
-  text-align: right;
   color: var(--fg-3);
   font-size: 11px;
+  font-variant-numeric: tabular-nums;
 }
 
 /* Diff panel */

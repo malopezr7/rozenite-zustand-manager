@@ -284,6 +284,57 @@ export function getActionDescriptors(state: Record<string, unknown>): ActionDesc
     });
 }
 
+type WrappableStore = {
+  getState: () => Record<string, unknown>;
+  setState: (partial: Record<string, unknown>, replace?: boolean) => void;
+};
+
+function copyDescriptor(target: object, property: string, value: unknown) {
+  try {
+    Object.defineProperty(target, property, { value, configurable: true });
+  } catch {
+    // Some runtimes reject redefining `length` / `name` on functions — ignore.
+  }
+}
+
+function createActionWrapper(name: string, original: (...args: unknown[]) => unknown, onInvoke: (name: string) => void, onComplete: (name: string) => void) {
+  function wrapper(this: unknown, ...args: unknown[]) {
+    onInvoke(name);
+    try {
+      return original.apply(this, args);
+    } finally {
+      onComplete(name);
+    }
+  }
+  copyDescriptor(wrapper, 'length', original.length);
+  copyDescriptor(wrapper, 'name', original.name || name);
+  copyDescriptor(wrapper, 'toString', () => original.toString());
+  return wrapper;
+}
+
+/**
+ * Replaces every top-level function property of `store.getState()` with a wrapper that
+ * fires `onInvoke(name)` before running the original and `onComplete(name)` after it returns
+ * or throws. Callers track the currently-executing action via the invoke/complete pair
+ * (push/pop stack) so the subscribe handler can attribute the next `setState` to the right action.
+ * Returns the list of wrapped property names.
+ */
+export function wrapStoreActions(store: WrappableStore, onInvoke: (name: string) => void, onComplete: (name: string) => void): string[] {
+  const state = store.getState();
+  const wrappers: Record<string, unknown> = {};
+  const names: string[] = [];
+
+  for (const [key, value] of Object.entries(state)) {
+    if (typeof value !== 'function') continue;
+    const original = value as (...args: unknown[]) => unknown;
+    wrappers[key] = createActionWrapper(key, original, onInvoke, onComplete);
+    names.push(key);
+  }
+
+  if (names.length > 0) store.setState(wrappers, false);
+  return names;
+}
+
 export function createStoreDescriptor(entry: StoreDescriptorEntry, previousUpdates = 0): StoreDescriptor {
   const state = entry.store.getState();
   const snapshot = createSanitizedSnapshot(state, entry) as Record<string, unknown>;
