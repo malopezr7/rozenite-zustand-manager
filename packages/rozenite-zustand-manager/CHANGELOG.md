@@ -6,6 +6,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 
 ## [Unreleased]
 
+## [0.0.4] - 2026-05-11
+
+### Added
+
+- **Timeline events now show the action name that triggered each mutation.** Previously every event fell back to `manual edit`, so it was hard to associate a state change with its source. The runtime now wraps every function in `store.getState()` with a per-store action-stack tracker; the `subscribe` callback tags each bridge update with `stack[top]`. Edits from the inspector still show `manual edit` + the path. Works under any middleware combination because it targets the post-`getState()` view. (#17, #23)
+
+### Changed
+
+- **Internal dependencies refreshed via the Dependabot wave**:
+  - `@rozenite/plugin-bridge`, `@rozenite/metro`, `@rozenite/vite-plugin`, `rozenite` 1.7.0 → 1.8.1
+  - `@react-native/metro-config` 0.85.2 → 0.85.3
+  - `@react-native-community/cli` & `cli-platform-android` 20.1.0 → 20.1.3
+  - `@biomejs/biome` 2.4.13 → 2.4.14
+  - `@babel/preset-env` 7.29.2 → 7.29.3
+  - `react` 19.2.3 → 19.2.5 (and `react-dom` aligned to 19.2.5)
+  - `@types/node` and other types group bumps
+- **`lint-staged` 16.4.0 → 17.0.4** at the workspace root. Now requires Node `>=22.22.1` to run (still consistent with the project's `engines.node >=22`).
+
 ## [0.0.3] - 2026-04-29
 
 ### Changed
